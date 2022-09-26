@@ -19,8 +19,6 @@ import {
   SPHttpClientResponse
 } from '@microsoft/sp-http';
 
-
-
 interface IRegistrationDetails {
   Title: string;
   Address: string;
@@ -176,7 +174,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
 
 
       private update(): void {
-       //   Declare All Variable Globally   *//
+       
        debugger;
      
         const body: string = JSON.stringify({
@@ -291,4 +289,5 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
       ]
     };
   }
+
 }
