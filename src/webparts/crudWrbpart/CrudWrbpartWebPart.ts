@@ -109,7 +109,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
     });
     });
     }
-
+         // This Function All List Item 
     private getListData() {
       
       let html: string = '<table border=1 width=100% style="border-collapse: collapse;">';
@@ -138,7 +138,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
       });
       });
     }
-
+  
 
     private create(): void {
      
