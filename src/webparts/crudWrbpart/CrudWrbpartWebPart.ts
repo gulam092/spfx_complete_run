@@ -65,9 +65,9 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
     <table>
     <tr>
     <td><button class="${styles.button} find-Button" >Find</button></td>
-    <td><button class="${styles.button} create-Button">Create_by_Gulam</button></td>
-    <td><button class="${styles.button} update-Button">Update_by_Gulam</button></td>
-    <td><button class="${styles.button} delete-Button">Delete_by_Gulam</button></td>
+    <td><button class="${styles.button} create-Button">Create</button></td>
+    <td><button class="${styles.button} update-Button">Update</button></td>
+    <td><button class="${styles.button} delete-Button">Delete</button></td>
     <td><button class="${styles.button} clear-Button">Clear</button></td>
     </tr>
     </table>
@@ -140,7 +140,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
     }
 
 
-    private Create_by_Gulam(): void {
+    private Create(): void {
      // this Method Created By Gulam Khan 
       //   Declare All Variable Globally   *//
       let  Fullname         = document.getElementById("idFullName");
@@ -175,7 +175,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
 
       private update(): void {
        
-       debugger;
+       
      
         const body: string = JSON.stringify({
           'Title': (document.getElementById('idFullName') as HTMLInputElement).value,
@@ -205,7 +205,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
         }
 
 
-        private Update_by_Gulam(): void {
+        private Update(): void {
           
           if (!window.confirm('Are you sure you want to delete the latest item?')) {
           return;
