@@ -140,8 +140,8 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
     }
   
 
-    private create(): void {
-     
+    private Create(): void {
+     // this Method Created By Gulam Khan 
       //   Declare All Variable Globally   *//
       let  Fullname         = document.getElementById("idFullName");
       let Address           = document.getElementById("idAddress");
@@ -175,7 +175,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
 
       private update(): void {
        
-       debugger;
+       
      
         const body: string = JSON.stringify({
           'Title': (document.getElementById('idFullName') as HTMLInputElement).value,
@@ -205,7 +205,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
         }
 
 
-        private delete(): void {
+        private Update(): void {
           
           if (!window.confirm('Are you sure you want to delete the latest item?')) {
           return;
