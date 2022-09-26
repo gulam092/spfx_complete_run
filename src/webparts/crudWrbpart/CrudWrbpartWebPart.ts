@@ -141,7 +141,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
 
 
     private create(): void {
-     
+     // this Method Created By Gulam Khan 
       //   Declare All Variable Globally   *//
       let  Fullname         = document.getElementById("idFullName");
       let Address           = document.getElementById("idAddress");
