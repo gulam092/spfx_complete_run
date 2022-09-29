@@ -9,7 +9,6 @@ import { escape } from '@microsoft/sp-lodash-subset';
 
 import styles from './CrudWrbpartWebPart.module.scss';
 import * as strings from 'CrudWrbpartWebPartStrings';
-
 export interface ICrudWrbpartWebPartProps {
   description: string;
 }
@@ -124,7 +123,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
       console.log('list items: ', listItems);
        
       listItems.forEach((item: IRegistrationDetails) => {
-      html += `
+       html += `
       <tr>
       <td>${item.Title}</td>
       <td>${item.Address}</td>
@@ -149,20 +148,20 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
       let Address       = (document.getElementById("idAddress") as HTMLInputElement).value;
       let Phone_number   = (document.getElementById("idPhoneNumber") as HTMLInputElement).value;
       let Email          = (document.getElementById("idEmailId")as HTMLInputElement).value;
-      
+     
       
       const emailRegexp = new RegExp(
         /^[a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1}([a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1})*[a-zA-Z0-9]@[a-zA-Z0-9][-\.]{0,1}([a-zA-Z][-\.]{0,1})*[a-zA-Z0-9]\.[a-zA-Z0-9]{1,}([\.\-]{0,1}[a-zA-Z]){0,}[a-zA-Z0-9]{0,}$/i
       )
 
-         console.log("hello"+emailRegexp.test(Email));
+         //console.log("hello"+emailRegexp.test(Email));
        if (Fullname  =="") {
         alert("Please Enter Full Name!");
     }
     else if(Address  ==""){
       alert("Please Enter Address!")
     }
-    else if(Phone_number  ==""||Phone_number.length < 10||Phone_number .length > 10) {
+    else if(Phone_number.length < 10||Phone_number .length > 10) {
          
             alert("Mobile No. is not valid, Please Enter 10 Digit Mobile No.");
         } 
@@ -192,7 +191,9 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
       },
       body: body
       }).then((response: SPHttpClientResponse): void => {
-      this.getListData();
+        
+      this.getListData(); 
+      
       this.clear();
       alert('Item has been successfully Saved ');
       }, (error: any): void => {

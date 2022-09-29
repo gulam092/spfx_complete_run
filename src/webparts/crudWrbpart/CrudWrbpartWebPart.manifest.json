@@ -22,7 +22,7 @@
     "description": { "default": "crud-wrbpart description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "crud-wrbpart"
+      "description": "Gulam Khan WebPart"
     }
   }]
 }
