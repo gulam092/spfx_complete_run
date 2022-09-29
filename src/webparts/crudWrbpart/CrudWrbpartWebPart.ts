@@ -51,15 +51,15 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
     </tr>
     <tr>
     <td>Address</td>
-    <td><input type="text" id="idAddress" name="address" placeholder="Address.."></td>
+    <td><textarea id="idAddress" name="address" placeholder ="Write Here..."></textarea></td>
     </tr>
     <tr>
     <td>Mobile Number</td>
-    <td><input type="text" id="idPhoneNumber" name="mobile" placeholder="Mobile Number.."></td>
+    <td><input type="number" id="idPhoneNumber" name="mobile" placeholder="Mobile Number.." pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required></td>
     </tr>
     <tr>
     <td>Email ID</td>
-    <td><input type="text" id="idEmailId" name="emailid" placeholder="Email ID.."></td>
+    <td><input type="email" id="idEmailId" name="emailid" placeholder="Email ID.."></td>
     </tr>
     </table>
     <table>
@@ -100,11 +100,12 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
     //document.getElementById('idFullName')["value"] = item.value[0].Title;
     (document.getElementById('idAddress') as HTMLInputElement).value  = item.value[0].Address;
     //document.getElementById('idAddress')["value"] = item.value[0].Address;
+    (document.getElementById('idPhoneNumber') as HTMLInputElement).value = item.value[0].Mobile;
+    // document.getElementById('idPhoneNumber')["value"] = item.value[0].Mobile;
     (document.getElementById('idEmailId') as HTMLInputElement).value = item.value[0].EmailID;
       //document.getElementById('idEmailId')["value"] = item.value[0].EmailID;
 
-    (document.getElementById('idPhoneNumber') as HTMLInputElement).value = item.value[0].Mobile;
-   // document.getElementById('idPhoneNumber')["value"] = item.value[0].Mobile;
+   
     this.listItemId = item.value[0].Id;
     });
     });
@@ -113,7 +114,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
     private getListData() {
       
       let html: string = '<table border=1 width=100% style="border-collapse: collapse;">';
-      html += '<th>Full Name</th><th>Address</th><th>Email ID</th> <th>Phone Number</th>  ';
+      html += '<th>Full Name</th><th>Address</th><th>Phone Number</th> <th>Email ID</th> ';
       this.context.spHttpClient.get(`${this.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('${this.Listname}')/items`, SPHttpClient.configurations.v1)
       .then(response => {
       return response.json()
@@ -127,8 +128,9 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
       <tr>
       <td>${item.Title}</td>
       <td>${item.Address}</td>
-      <td>${item.EmailID}</td>
       <td>${item.Mobile}</td>
+      <td>${item.EmailID}</td>
+      
       </tr>
       `;
       });
@@ -140,19 +142,45 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
     }
   
 
-    private Create(): void {
+    private create(): void {
      // this Method Created By Gulam Khan 
-      //   Declare All Variable Globally   *//
-      let  Fullname         = document.getElementById("idFullName");
-      let Address           = document.getElementById("idAddress");
-      let Email             = document.getElementById("idEmailId");
-      let Phone_number       = document.getElementById("idPhoneNumber");
-     
+      //   Declare All Variable Locally   *//
+      let  Fullname    = (document.getElementById("idFullName")as HTMLInputElement).value;
+      let Address       = (document.getElementById("idAddress") as HTMLInputElement).value;
+      let Phone_number   = (document.getElementById("idPhoneNumber") as HTMLInputElement).value;
+      let Email          = (document.getElementById("idEmailId")as HTMLInputElement).value;
+      
+      
+      const emailRegexp = new RegExp(
+        /^[a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1}([a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1})*[a-zA-Z0-9]@[a-zA-Z0-9][-\.]{0,1}([a-zA-Z][-\.]{0,1})*[a-zA-Z0-9]\.[a-zA-Z0-9]{1,}([\.\-]{0,1}[a-zA-Z]){0,}[a-zA-Z0-9]{0,}$/i
+      )
+
+         console.log("hello"+emailRegexp.test(Email));
+       if (Fullname  =="") {
+        alert("Please Enter Full Name!");
+    }
+    else if(Address  ==""){
+      alert("Please Enter Address!")
+    }
+    else if(Phone_number  ==""||Phone_number.length < 10||Phone_number .length > 10) {
+         
+            alert("Mobile No. is not valid, Please Enter 10 Digit Mobile No.");
+        } 
+
+   else if(Email  ==""||emailRegexp.test(Email)==false) {
+         
+           alert("Please Enter valid Email Address !");
+        } 
+
+    else 
+    
+    {
+        //console.log("else parts");
       const body: string = JSON.stringify({
-      'Title': (Fullname as HTMLInputElement).value,
-      'Address': (Address as HTMLInputElement).value,
-      'EmailID': (Email as HTMLInputElement).value,
-      'Mobile': (Phone_number as HTMLInputElement).value
+      'Title': (Fullname ),
+      'Address': (Address),
+      'Mobile': (Phone_number),
+      'EmailID': (Email)
       });
        
       this.context.spHttpClient.post(`${this.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('${this.Listname}')/items`,
@@ -170,7 +198,8 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
       }, (error: any): void => {
       alert(`${error}`);
       });
-      }
+    } 
+    }
 
 
       private update(): void {
@@ -180,8 +209,9 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
         const body: string = JSON.stringify({
           'Title': (document.getElementById('idFullName') as HTMLInputElement).value,
           'Address': (document.getElementById('idAddress') as HTMLInputElement).value,
-          'EmailID': (document.getElementById('idEmailId') as HTMLInputElement).value,
-          'Mobile': (document.getElementById('idPhoneNumber') as HTMLInputElement).value
+          'Mobile': (document.getElementById('idPhoneNumber') as HTMLInputElement).value,
+          'EmailID': (document.getElementById('idEmailId') as HTMLInputElement).value
+          
         });
          
         var current_url = this.context.spHttpClient.post(`${this.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('${this.Listname}')/items(${this.listItemId})`,
@@ -205,7 +235,7 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
         }
 
 
-        private Update(): void {
+        private delete(): void {
           
           if (!window.confirm('Are you sure you want to delete the latest item?')) {
           return;
@@ -232,8 +262,9 @@ export default class CrudWrbpartWebPart extends BaseClientSideWebPart<ICrudWrbpa
           private clear(): void {
              (document.getElementById('idFullName') as HTMLInputElement).value  ="";
             (document.getElementById('idAddress') as HTMLInputElement).value    ="";
-            (document.getElementById('idEmailId') as HTMLInputElement).value    ="";
             (document.getElementById('idPhoneNumber') as HTMLInputElement).value  ="";
+            (document.getElementById('idEmailId') as HTMLInputElement).value    ="";
+            
             
         }
 
